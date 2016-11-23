@@ -13,8 +13,11 @@ function loadIt(e) {
       if (data.name === "undefined") {
         alert ('Sorry we can\'t find a city by that name!')
       } else {
+        group.append($('<h1 class="cityTitle"></h1>').text(data.name));
+        group.append($('<h1 class="cityTitle"></h1>').text(data.main.temp));
+        group.append($('<h1 class="cityTitle"></h1>').text(data.main.humidity));
+
         $.each(data.weather,function(index, weather){
-          group.append('<br>');
           group.append($('<h1 class="cityTitle"></h1>').text(weather.main));
         })
       }
