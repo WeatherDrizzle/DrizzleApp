@@ -10,16 +10,19 @@ function loadIt(e) {
     }).done(function(data){
       console.log(data);
       var group = $('<div class="group"></div>')
+      var subgroup = $('<div class="subgroup"></div>')
       if (data.name === "undefined") {
         alert ('Sorry we can\'t find a city by that name!')
       } else {
-        group.append($('<h1 class="cityTitle"></h1>').text(data.name));
-        group.append($('<h1 class="cityTitle"></h1>').text(data.main.temp));
-        group.append($('<h1 class="cityTitle"></h1>').text(data.main.humidity));
-
+        subgroup.append($('<h1 class="cityTitle"></h1>').text(data.name));
+        subgroup.append($('<p class="cityTemp"></p>').text(Math.round(data.main.temp*9/5 - 459.67)+ '°F'));
+        subgroup.append($('<p class="cityTemp"></p>').text(Math.round(data.main.temp_max*9/5 - 459.67)+ '°F' + ' / ' + Math.round(data.main.temp_min*9/5 - 459.67)+ '°F'));
+        subgroup.append($('<p class="cityHumid"></p>').text(data.main.humidity + '%'));
         $.each(data.weather,function(index, weather){
-          group.append($('<h1 class="cityTitle"></h1>').text(weather.main));
+          subgroup.append($('<p class="cityWeather"></p>').text(weather.main));
         })
+        subgroup.append($('<p class="cityHumid"></p>').text(Math.round(data.wind.speed/.44704)+ 'mph'));
+        group.append(subgroup);
       }
       $('.content').empty().append(group);
     });
