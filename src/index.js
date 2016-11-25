@@ -16,8 +16,8 @@ $(function() {
         } else {
           currentSubGroup.append($('<h1 class="cityTitle"></h1>').text(data.name));
           currentSubGroup.append($('<p class="cityTemp"></p>').text(Math.round(data.main.temp*9/5 - 459.67)+ '°F'));
-          currentSubGroup.append($('<p class="cityTemp"></p>').text(Math.round(data.main.temp_max*9/5 - 459.67)+ '°F' + ' / ' + Math.round(data.main.temp_min*9/5 - 459.67)+ '°F'));
-          currentSubGroup.append($('<p class="cityHumid"></p>').text(data.main.humidity + '%'));
+          currentSubGroup.append($('<p class="cityTemp_MaxMin"></p>').text('High/Low: ' + Math.round(data.main.temp_max*9/5 - 459.67)+ '°F' + ' / ' + Math.round(data.main.temp_min*9/5 - 459.67)+ '°F'));
+          currentSubGroup.append($('<p class="cityHumid"></p>').text('Humidity: ' + data.main.humidity + '%'));
           $.each(data.weather,function(index, weather){
             currentSubGroup.append($('<p class="cityWeather"></p>').text(weather.main));
           })
@@ -38,19 +38,19 @@ $(function() {
       alert('Don\'t forget to enter your city!')
     } else {
       $.ajax({
-        url: "http://api.openweathermap.org/data/2.5/forecast?q=" + encodeURIComponent(cityReq) + "&APPID=1a1576ef47c8c1b185e9e0cadda52974"
+        url: "http://api.openweathermap.org/data/2.5/forecast?q=" + encodeURIComponent(cityReq) + "&cnt=9&APPID=1a1576ef47c8c1b185e9e0cadda52974"
       }).done(function(fData){
         var forecastGroup = $('<div class="forecastGroup"></div>')
         var forecastSubGroup = $('<div class="forecastSubGroup"></div>')
         if ( fData.city === "undefined") {
           alert ('Sorry we can\'t find a city by that name!')
         } else {
-          forecastSubGroup.append($('<br>' + '<h1 class="forecastTitle"></h1>').text(fData.city.name));
+          forecastSubGroup.append($('<br>' + '<h1 class="forecastTitle"></h1>').text(fData.city.name + ' - 24h Forecast:'));
           $.each(fData.list,function(index, value){
             forecastSubGroup.append($('<br>' + '<p class="forecastDate"></p>').text(value.dt_txt));
             forecastSubGroup.append($('<p class="forecastTemp"></p>').text(Math.round(value.main.temp_max*9/5 - 459.67)+ '°F' + ' / ' + Math.round(value.main.temp_min*9/5 - 459.67)+ '°F'));
             forecastSubGroup.append($('<p class="forecastWindSpeed"></p>').text(Math.round(value.wind.speed/.44704)+ 'mph'));
-            forecastSubGroup.append($('<p class="forecastTitle"><p>').text(value.weather.main));
+            forecastSubGroup.append($('<p class="forecastTitle"><p>' + '<br>').text(value.weather.main));
 
         })
           forecastGroup.append(forecastSubGroup);
@@ -62,5 +62,6 @@ $(function() {
 
   $('.search').on("submit", loadCurrent);
   $('.search').on("submit", loadFiveDay);
+
 
 })
