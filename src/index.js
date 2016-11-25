@@ -60,7 +60,6 @@ $(function() {
     }
   }
 
-
   $('.search').on("submit", loadCurrent);
   $('.search').on("submit", loadFiveDay);
 
