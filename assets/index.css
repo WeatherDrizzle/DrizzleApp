@@ -1,18 +1,19 @@
-html, body {
-  font-size: 16px;
+html,
+body {
   box-sizing: border-box;
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
 
-.navigation img{
+.navigation img {
   position: fixed;
   z-index: -100;
 }
 
 form {
-  z-index: 5;
   text-align: center;
+  z-index: 5;
 }
 
 .currentContent {
@@ -32,12 +33,10 @@ form {
   display: flex;
 }
 
-
 .forecastSubGroup {
-  padding: 10px;
   height: 30%;
+  padding: 10px;
 }
-
 
 .historyContent {
   width: 33%;
